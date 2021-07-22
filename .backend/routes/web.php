@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\HelloMiddleware;
+use App\Http\Controllers\HelloController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware([HelloMiddleware::class])->group(function () {
+    Route::get('/hello/{id}', [HelloController::class, 'index']);
+    Route::get('hello/other', [HelloController::class, 'other']);
 });
