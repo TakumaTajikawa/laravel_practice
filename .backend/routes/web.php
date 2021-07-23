@@ -21,5 +21,5 @@ Route::get('/', function () {
 
 Route::middleware([HelloMiddleware::class])->group(function () {
     Route::get('/hello/{id}', [HelloController::class, 'index']);
-    Route::get('hello/other', [HelloController::class, 'other']);
+    Route::get('/hello/other', [HelloController::class, 'other']);
 });

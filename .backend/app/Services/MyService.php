@@ -8,13 +8,16 @@ class MyService
     private $msg = 'no id...';
     private $data = ['Hello', 'Wellcome', 'Bye'];
 
-    public function __construct(int $id = -1)
+    public function __construct()
     {
-        if ($id >= 0) {
-            $this->id = $id;
-            $this->msg = 'select: ' . $this->data[$id];
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        if ($id >= 0 && $id < count($this->data)) {
+            $this->msg = "select id:" . $id . ', data:' . $this->data[$id] . '""'; 
         }
-        
     }
 
     public function say()
@@ -22,7 +25,7 @@ class MyService
         return $this->msg;
     }
 
-    public function data()
+    public function data(int $id): string
     {
         return $this->data[$id];
     }
