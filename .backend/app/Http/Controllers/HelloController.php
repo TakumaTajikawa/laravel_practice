@@ -7,15 +7,15 @@ use App\Services\MyServiceInterface;
 
 class HelloController extends Controller
 {
-    public function __construct(
-        // MyServiceInterface $myService
-    ){
-        // $this->myService = $myService;
-    }
+    // public function __construct(
+    //     // MyServiceInterface $myService
+    // ){
+    //     // $this->myService = $myService;
+    // }
 
-    public function index(MyServiceInterface $myService)
+    public function index(MyServiceInterface $myService, int $id = -1)
     {
-        // $myService->setId(3);
+        $myService->setId($id);
         $data = [
             'msg' => $myService->say(),
             'data' => $myService->allData(),
