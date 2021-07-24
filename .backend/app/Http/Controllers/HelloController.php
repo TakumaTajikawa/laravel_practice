@@ -7,19 +7,20 @@ use App\Services\MyService;
 
 class HelloController extends Controller
 {
-    public function index(int $id = -1)
+    public function index(MyService $myService, int $id = -1)
     {
-        $myservice = app()->makeWith(MyService::class, ['id' => $id]);
 
+        $myService->setId($id);
         $data = [
-            'msg' => $myservice->say(),
-            'data' => $myservice->alldata(),
+            'msg' => $myService->say(),
+            'data' => $myService->alldata(),
         ];
         return view('hello.index', $data);
     }
 
     public function other(Request $request)
     {
+        dd($request);
         $data = [
             'msg'=>$request->bye,
         ];
