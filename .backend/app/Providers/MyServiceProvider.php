@@ -16,9 +16,15 @@ class MyServiceProvider extends ServiceProvider
     public function register()
     {
         app()->singleton(
+            'MyService',
+            PowerMyService::class,
+        );
+
+        app()->singleton(
             MyServiceInterface::class, 
             PowerMyService::class,
         );
+
         echo "<b><MyServiceProvider/register></b><br>";
     }
 
