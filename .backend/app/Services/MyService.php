@@ -2,14 +2,15 @@
 
 namespace App\Services;
 
-class MyService
+use App\Services\MyServiceInterface;
+
+class MyService implements MyServiceInterface
 {
-    private $serial;
     private $id = -1;
     private $msg = 'no id...';
     private $data = ['hello', 'welcome', 'Bye!'];
 
-    public function __construct(int $id)
+    public function __construct(int $id = -1)
     {
         $this->id = $id;
         if ($id >= 0 && $id < count($this->data)) {
@@ -17,7 +18,7 @@ class MyService
         }
     }
 
-    public function setId(int $id): void
+    public function setId(int $id)
     {
         $this->id = $id;
         if ($id >= 0 && $id < count($this->data)) {
@@ -25,7 +26,7 @@ class MyService
         }
     }
 
-    public function say()
+    public function say(): string
     {
         return $this->msg;
     }
@@ -35,7 +36,7 @@ class MyService
         return $this->data[$id];
     }
 
-    public function alldata()
+    public function allData(): array
     {
         return $this->data;
     }
