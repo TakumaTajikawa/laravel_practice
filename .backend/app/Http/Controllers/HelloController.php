@@ -13,22 +13,12 @@ class HelloController extends Controller
         // $this->myService = $myService;
     }
 
-    public function index(MyServiceInterface $myService, int $id = -1)
+    public function index(MyServiceInterface $myService)
     {
-
-        $myService->setId(2);
+        // $myService->setId(3);
         $data = [
             'msg' => $myService->say(),
             'data' => $myService->allData(),
-        ];
-        return view('hello.index', $data);
-    }
-
-    public function other(Request $request)
-    {
-        dd($request);
-        $data = [
-            'msg'=>$request->bye,
         ];
         return view('hello.index', $data);
     }
