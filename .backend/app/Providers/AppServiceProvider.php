@@ -24,12 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        app()->bind('MyService::class',
-            function($app) {
-                $myService = new MyService();
-                $myService->setId(0);
-                return $myService;
-            });
-        
+        app()->when(MyService::class)->needs('$id')->give(1);
     }
 }

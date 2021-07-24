@@ -7,6 +7,12 @@ use App\Services\MyService;
 
 class HelloController extends Controller
 {
+    public function __construct(
+        MyService $myService
+    ){
+        $this->myService = $myService;
+    }
+
     public function index(MyService $myService, int $id = -1)
     {
 
