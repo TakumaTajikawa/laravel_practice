@@ -3,26 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\MyService;
+use App\Services\MyServiceInterface;
+use App\Facades\MyService;
 
 class HelloController extends Controller
 {
-    public function index(MyService $myService, int $id = -1)
-    {
+    // public function __construct(
+    //     // MyServiceInterface $myService
+    // ){
+    //     // $this->myService = $myService;
+    // }
 
-        $myService->setId($id);
-        $data = [
-            'msg' => $myService->say(),
-            'data' => $myService->alldata(),
-        ];
-        return view('hello.index', $data);
-    }
-
-    public function other(Request $request)
+    public function index(int $id = -1)
     {
-        dd($request);
+        MyService::setId($id);
         $data = [
-            'msg'=>$request->bye,
+            'msg' => MyService::say(),
+            'data' => MyService::allData(),
         ];
         return view('hello.index', $data);
     }

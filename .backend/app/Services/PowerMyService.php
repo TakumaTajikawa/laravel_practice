@@ -4,25 +4,22 @@ namespace App\Services;
 
 use App\Services\MyServiceInterface;
 
-class MyService implements MyServiceInterface
+class PowerMyService implements MyServiceInterface
 {
     private $id = -1;
     private $msg = 'no id...';
-    private $data = ['hello', 'welcome', 'Bye!'];
+    private $data = ['イチゴ', 'りんご', 'ばなな', 'みかん', 'ぶどう'];
 
-    public function __construct(int $id = -1)
+    public function __construct()
     {
-        $this->id = $id;
-        if ($id >= 0 && $id < count($this->data)) {
-            $this->msg = "select id:" . $id . ', data:"' . $this->data[$id] . '"';
-        }
+        $this->setId(rand(0, count($this->data)));
     }
 
     public function setId(int $id)
     {
-        $this->id = $id;
         if ($id >= 0 && $id < count($this->data)) {
-            $this->msg = "select id:" . $id . ', data:"' . $this->data[$id] . '"';
+            $this->id = $id;
+            $this->msg = "あなたが好きなのは、" . $id . '番の' . $this->data[$id] . 'ですね！';
         }
     }
 
@@ -36,8 +33,14 @@ class MyService implements MyServiceInterface
         return $this->data[$id];
     }
 
+    public function setData(array $data): void
+    {
+        $this->data = $data;
+    }
+
     public function allData(): array
     {
         return $this->data;
     }
+    
 }
