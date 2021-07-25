@@ -24,6 +24,17 @@ class MyMiddleware
             'allData' => \MyService::allData(),
         ];
         $request->merge($mergeData);
-        return $next($request);
+        $response = $next($request);
+
+        $content = $response->content();
+        $content .= '<style>
+            body { background-color: orange; }
+            p { font-size: 22px; }
+            li { color: red; font-weight: bold; }
+        </style>';
+        $response->setContent($content);
+
+        return $response;
+
     }
 }

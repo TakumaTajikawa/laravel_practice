@@ -16,7 +16,6 @@ class HelloController extends Controller
 
     public function index(Request $request)
     {
-        dd($request);
         $data = [
             'msg' => $request->msg,
             'data' => $request->allData,
