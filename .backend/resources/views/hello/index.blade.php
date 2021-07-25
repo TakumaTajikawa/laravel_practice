@@ -9,6 +9,8 @@
 <body>
     <h1>Hello/Index</h1>
     <p>{{ $msg }}</p>
+    <p>{{ $bye }}</p>
+    <p>{{ $msg2 }}</p>
     @foreach($data as $item)
         <p>{{$item}}</p>
     @endforeach
