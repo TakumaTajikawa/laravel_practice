@@ -9,9 +9,14 @@
 <body>
     <h1>Hello/Index</h1>
     <p>{{ $msg }}</p>
-    @foreach($data as $item)
-        <p>{{$item}}</p>
-    @endforeach
-    
+    <ol>
+        @foreach($data as $item)
+            <li>
+                {{ $item->name }}
+                [{{ $item->email }}, {{ $item->age }}]
+            </li>
+        @endforeach
+    </ol>
+    <hr>
 </body>
 </html>

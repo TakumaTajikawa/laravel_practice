@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\MyServiceInterface;
-use App\Facades\MyService;
+use Illuminate\Support\Facades\DB;
 
 class HelloController extends Controller
 {
@@ -14,12 +14,18 @@ class HelloController extends Controller
     //     // $this->myService = $myService;
     // }
 
-    public function index(int $id = -1)
+    public function index($id = -1)
     {
-        MyService::setId($id);
+        if ($id >= 0) {
+            $msg = 'get name like "' . $id . '".';
+            $result = DB::table('peoples')->where('name', 'like', '%'. $id . '%')->get();
+        } else {
+            $msg = 'get peoples records.';
+            $result = DB::table('peoples')->get();
+        }
         $data = [
-            'msg' => MyService::say(),
-            'data' => MyService::allData(),
+            'msg' => $msg,
+            'data' => $result,
         ];
         return view('hello.index', $data);
     }
