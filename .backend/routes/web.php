@@ -23,6 +23,9 @@ Route::get('/', function () {
 Route::get('/hello', [HelloController::class, 'index'])
     ->middleware('MyMW');
 
+Route::get('/hello/{id}', [HelloController::class, 'index'])
+    ->middleware('MyMW');
+
 Route::get('/hello/other', [HelloController::class, 'other'])
     ->middleware(MyMiddleware::class);
 

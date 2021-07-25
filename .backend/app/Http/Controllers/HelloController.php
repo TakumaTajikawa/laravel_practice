@@ -14,11 +14,17 @@ class HelloController extends Controller
     //     // $this->myService = $myService;
     // }
 
-    public function index(Request $request)
+    public function index($id = -1)
     {
-        $result = DB::table('peoples')->get();
+        if ($id >= 0) {
+            $msg = 'get ID <=' . $id;
+            $result = DB::table('peoples')->where('id', '<=', $id)->get();
+        } else {
+            $msg = 'get peoples records.';
+            $result = DB::table('peoples')->get();
+        }
         $data = [
-            'msg' => 'Database access.',
+            'msg' => $msg,
             'data' => $result,
         ];
         return view('hello.index', $data);
