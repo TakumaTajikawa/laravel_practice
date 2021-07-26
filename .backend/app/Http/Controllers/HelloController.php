@@ -14,15 +14,20 @@ class HelloController extends Controller
     //     // $this->myService = $myService;
     // }
 
-    public function index($id = -1)
+    public function index()
     {
-        if ($id >= 0) {
-            $msg = 'get name like "' . $id . '".';
-            $result = DB::table('peoples')->where('name', 'like', '%'. $id . '%')->get();
-        } else {
-            $msg = 'get peoples records.';
-            $result = DB::table('peoples')->get();
-        }
+        $data = ['msg' => '', 'data' => []];
+        $msg = 'get: ';
+        $result = [];
+        DB::table('peoples')->chunkById(2, function($items) use (&$msg, &$result){
+            foreach($items as $item) {
+                $msg .= $item->id . ' ';
+                $result += array_merge($result, [$item]);
+                break;
+            }
+            return true;
+        });
+
         $data = [
             'msg' => $msg,
             'data' => $result,
