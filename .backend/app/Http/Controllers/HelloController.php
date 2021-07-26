@@ -16,10 +16,17 @@ class HelloController extends Controller
 
     public function index()
     {
-        $name = DB::table('peoples')->pluck('name')->toArray();
-        dd($name);
-        $msg = implode('、 ', $name);
-        $result = DB::table('peoples')->get();
+        $data = ['msg' => '', 'data' => []];
+        $msg = 'get: ';
+        $result = [];
+        DB::table('peoples')->chunkById(2, function($items) use (&$msg, &$result){
+            foreach($items as $item) {
+                $msg .= $item->id . ' ';
+                $result += array_merge($result, [$item]);
+                break;
+            }
+            return true;
+        });
 
         $data = [
             'msg' => $msg,
