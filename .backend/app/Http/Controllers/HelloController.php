@@ -16,13 +16,11 @@ class HelloController extends Controller
 
     public function index($id = -1)
     {
-        if ($id >= 0) {
-            $msg = 'get name like "' . $id . '".';
-            $result = DB::table('peoples')->where('name', 'like', '%'. $id . '%')->get();
-        } else {
-            $msg = 'get peoples records.';
-            $result = DB::table('peoples')->get();
-        }
+        $msg = 'get people records.';
+        $first = DB::table('peoples')->first();
+        $last = DB::table('peoples')->orderBy('id', 'desc')->first();
+        $result = [$first, $last];
+
         $data = [
             'msg' => $msg,
             'data' => $result,
