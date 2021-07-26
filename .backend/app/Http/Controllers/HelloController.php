@@ -14,12 +14,15 @@ class HelloController extends Controller
     //     // $this->myService = $myService;
     // }
 
-    public function index($id = -1)
+    public function index(int $id = -1)
     {
-        $msg = 'get people records.';
-        $first = DB::table('peoples')->first();
-        $last = DB::table('peoples')->orderBy('id', 'desc')->first();
-        $result = [$first, $last];
+        if ($id >= 0) {
+            $msg = 'get name like "' . $id . '".';
+            $result = [DB::table('peoples')->find($id)];
+        } else {
+            $msg = 'get people records.';
+            $result = DB::table('peoples')->get();
+        }
 
         $data = [
             'msg' => $msg,
