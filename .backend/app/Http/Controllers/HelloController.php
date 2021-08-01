@@ -19,14 +19,15 @@ class HelloController extends Controller
         $data = ['msg' => '', 'data' => []];
         $msg = 'get: ';
         $result = [];
-        DB::table('peoples')->chunkById(2, function($items) use (&$msg, &$result){
-            foreach($items as $item) {
-                $msg .= $item->id . ' ';
+        DB::table('peoples')->orderBy('name', 'asc')->chunk(2, function($items) use (&$msg, &$result) {
+            foreach ($items as $item) {
+                $msg .= $item->id . ':' . $item->name . '';
                 $result += array_merge($result, [$item]);
                 break;
             }
             return true;
         });
+            
 
         $data = [
             'msg' => $msg,
