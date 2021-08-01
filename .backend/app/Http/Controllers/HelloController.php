@@ -17,9 +17,8 @@ class HelloController extends Controller
     public function index($id)
     {
         $ids = explode(',', $id);
-        dd($ids);
         $msg = 'get people.';
-        $result = DB::table('peoples')->whereBetween('id', $ids)->get();
+        $result = DB::table('peoples')->whereIn('id', $ids)->get();
 
 
         $data = [
