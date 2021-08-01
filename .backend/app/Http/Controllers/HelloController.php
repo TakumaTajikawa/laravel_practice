@@ -14,10 +14,13 @@ class HelloController extends Controller
     //     // $this->myService = $myService;
     // }
 
-    public function index()
+    public function index($id)
     {
-        
-            
+        $ids = explode(',', $id);
+        dd($ids);
+        $msg = 'get people.';
+        $result = DB::table('peoples')->whereBetween('id', $ids)->get();
+
 
         $data = [
             'msg' => $msg,
