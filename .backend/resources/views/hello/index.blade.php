@@ -21,5 +21,10 @@
         @endforeach
     </ol>
     <hr>
+    <form action="/hello" method="POST">
+        @csrf
+        ID:<input type="text" id="id" name="id">
+        <input type="submit" value="送信">
+    </form>
 </body>
 </html>

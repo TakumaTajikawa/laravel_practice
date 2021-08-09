@@ -7,6 +7,7 @@ use App\Services\MyServiceInterface;
 use Illuminate\Support\Facades\DB;
 use App\Models\Person;
 use App\Jobs\MyJob;
+use Illuminate\Support\Facades\Storage;
 
 class HelloController extends Controller
 {
@@ -18,9 +19,6 @@ class HelloController extends Controller
 
     public function index(Person $person = null)
     {
-        if ($person != null) {
-            MyJob::dispatch($person)->delay(now()->addMinutes(1));
-        }
         $msg = 'show people record';
         $result = Person::get();
 
@@ -30,6 +28,17 @@ class HelloController extends Controller
                 'data' => $result,
                 'input' => '',
             ]);
+    }
+
+    public function send(Request $request)
+    {
+        $id = $request->input('id');
+        $person = Person::find($id);
+
+        dispatch(function() use ($person) {
+            Storage::append('person_access_log.txt', $person->all_data);
+        });
+        return redirect()->route('hello');
     }
 
     public function saving()
