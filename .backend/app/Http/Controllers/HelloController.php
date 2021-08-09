@@ -18,7 +18,7 @@ class HelloController extends Controller
     {
         $id = $request->query('page');
         $msg = 'show page: ' . $id;
-        $result = DB::table('peoples')->paginate(3, ['*'], 'page', $id);
+        $result = DB::table('peoples')->paginate(3);
 
         return view('hello.index')
             ->with([
