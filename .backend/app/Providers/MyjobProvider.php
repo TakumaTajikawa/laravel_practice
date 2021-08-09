@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Jobs\MyJob;
 
-class MyjobProvider extends ServiceProvider
+class MyJobProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -14,8 +14,7 @@ class MyjobProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bindMethod(MyJob::class.'@handle',
-            function($job, $app){
+        $this->app->bindMethod([MyJob::class, 'handle'], function ($job, $app) {
                 return $job->handle();
             });
     }

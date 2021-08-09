@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\MyServiceInterface;
 use Illuminate\Support\Facades\DB;
 use App\Models\Person;
+use App\Jobs\MyJob;
 
 class HelloController extends Controller
 {
@@ -15,16 +16,19 @@ class HelloController extends Controller
     //     // $this->myService = $myService;
     // }
 
-    public function index(Request $request)
+    public function index(Person $person = null)
     {
+        if ($person != null) {
+            MyJob::dispatch($person);
+        }
         $msg = 'show people record';
-        $re = Person::get();
-        $fields = Person::get()->fields();
+        $result = Person::get();
 
         return view('hello.index')
             ->with([
-                'msg' => implode(', ', $fields),
-                'data' => $re
+                'msg' => $msg,
+                'data' => $result,
+                'input' => '',
             ]);
     }
 

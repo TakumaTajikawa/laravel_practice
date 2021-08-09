@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::get('/hello', [HelloController::class, 'index'])->name('hello')
     ->middleware('MyMW');
 
-Route::get('/hello/{id}', [HelloController::class, 'index'])
+Route::get('/hello/{person}', [HelloController::class, 'index'])
     ->middleware('MyMW');
 
 Route::get('/hello/saving', [HelloController::class, 'saving']);
