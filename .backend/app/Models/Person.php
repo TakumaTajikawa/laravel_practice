@@ -15,11 +15,26 @@ class Person extends Model
         return new MyCollection($models);
     }
 
-    public function fields()
+    public function getNameAndIdAttribute()
     {
-        $item = $this->first();
-        return array_keys($item->toArray());
+        return $this->name . '[id=' . $this->id . ']';
     }
+
+    public function getNameAndMailAttribute()
+    {
+        return $this->name . '(' . $this->email . ')';
+    }
+
+    public function getNameAndAgeAttribute()
+    {
+        return $this->name . '(' . $this->age . ')';
+    }
+
+    public function getAllDataAttribute()
+    {
+        return $this->name . '(' . $this->age . ')' . ' [' . $this->email . ']';
+    }
+
 }
 
 class MyCollection extends Collection
