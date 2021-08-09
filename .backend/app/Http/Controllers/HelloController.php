@@ -18,9 +18,11 @@ class HelloController extends Controller
     public function index(Request $request)
     {
         $msg = 'show people record';
-        $result = Person::get()->reject(function($person){
-            return $person->age < 40;
+        $keys = Person::get()->modelKeys();
+        $even = array_filter($keys, function($key){
+            return $key % 2 == 0;
         });
+        $result = Person::get()->only($even);
 
         return view('hello.index')
             ->with([

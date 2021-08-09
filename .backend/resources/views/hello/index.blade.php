@@ -13,6 +13,7 @@
     <ol>
         @foreach($data as $item)
             <li>
+                {{ $item->id}}
                 {{ $item->name }}
                 [{{ $item->email }}, {{ $item->age }}]
             </li>
