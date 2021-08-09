@@ -20,12 +20,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hello', [HelloController::class, 'index'])
+Route::get('/hello', [HelloController::class, 'index'])->name('hello')
     ->middleware('MyMW');
 
-Route::get('/hello/{id}', [HelloController::class, 'index'])
+Route::get('/hello/{person}', [HelloController::class, 'index'])
     ->middleware('MyMW');
 
-Route::get('/hello/other', [HelloController::class, 'other'])
-    ->middleware(MyMiddleware::class);
+Route::post('/hello', [HelloController::class, 'send']);
 
