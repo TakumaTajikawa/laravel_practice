@@ -26,8 +26,9 @@ Route::get('/hello', [HelloController::class, 'index'])->name('hello')
 Route::get('/hello/{id}', [HelloController::class, 'index'])
     ->middleware('MyMW');
 
-Route::get('/hello/other', [HelloController::class, 'other'])
-    ->middleware(MyMiddleware::class);
+Route::get('/hello/saving', [HelloController::class, 'saving']);
 
-Route::get('/hello/{id}/{name}', [HelloController::class, 'save']);
+// Route::get('/hello/{id}/{name}', [HelloController::class, 'save']);
 
+Route::get('/hello/json', [HelloController::class, 'json']);
+Route::get('/hello/json/{id}', [HelloController::class, 'json']);

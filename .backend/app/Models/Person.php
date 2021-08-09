@@ -47,9 +47,16 @@ class Person extends Model
     //     return strtoupper($name);
     // }
 
-    public function setNameAttribute($value)
+    public function setNameAttribute(string $value): void
     {
         $this->attributes['name'] = strtoupper($value);
+    }
+
+    public function setAllDataAttribute(array $value): void
+    {
+        $this->attributes['name'] = $value[0];
+        $this->attributes['email'] = $value[1];
+        $this->attributes['age'] = $value[2];
     }
 
 }
