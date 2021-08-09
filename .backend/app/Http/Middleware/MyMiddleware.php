@@ -28,7 +28,6 @@ class MyMiddleware
 
         $content = $response->content();
         $content .= '<style>
-            body { background-color: orange; }
             p { font-size: 22px; }
             li { color: red; font-weight: bold; }
         </style>';

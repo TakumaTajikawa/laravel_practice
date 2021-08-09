@@ -19,6 +19,5 @@
         @endforeach
     </ol>
     <hr>
-    {!! $data->links() !!}
 </body>
 </html>

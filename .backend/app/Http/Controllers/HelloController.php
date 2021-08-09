@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\MyServiceInterface;
 use Illuminate\Support\Facades\DB;
+use App\Models\Person;
 
 class HelloController extends Controller
 {
@@ -16,9 +17,8 @@ class HelloController extends Controller
 
     public function index(Request $request)
     {
-        $id = $request->query('page');
-        $msg = 'show page: ' . $id;
-        $result = DB::table('peoples')->paginate(3);
+        $msg = 'show people record';
+        $result = Person::get();
 
         return view('hello.index')
             ->with([
