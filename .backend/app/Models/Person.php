@@ -9,6 +9,13 @@ use Illuminate\Database\Eloquent\Collection;
 class Person extends Model
 {
     protected $table = 'peoples';
+    protected $guarded = ['id'];
+
+    public static $rules = [
+        'name' => 'required',
+        'email' => 'email',
+        'age' => 'integer',
+    ];
 
     public function newCollection(array $models = [])
     {
@@ -33,6 +40,16 @@ class Person extends Model
     public function getAllDataAttribute()
     {
         return $this->name . '(' . $this->age . ')' . ' [' . $this->email . ']';
+    }
+
+    // public function getNameAttribute($name)
+    // {
+    //     return strtoupper($name);
+    // }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtoupper($value);
     }
 
 }

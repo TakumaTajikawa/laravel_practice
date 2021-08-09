@@ -27,4 +27,12 @@ class HelloController extends Controller
                 'data' => $re
             ]);
     }
+
+    public function save(int $id, string $name)
+    {
+        $record = Person::find($id);
+        $record->name = $name;
+        $record->save();
+        return redirect()->route('hello');
+    }
 }
