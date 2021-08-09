@@ -18,18 +18,13 @@ class HelloController extends Controller
     public function index(Request $request)
     {
         $msg = 'show people record';
-        $even = Person::get()->filter(function($item){
-            return $item->id % 2 == 0;
-        });
-        $map = $even->map(function($item, $key){
-            return $item->id . ':' . $item->name;
-        });
-
+        $re = Person::get();
+        $fields = Person::get()->fields();
 
         return view('hello.index')
             ->with([
-                'msg' => $map,
-                'data' => $even,
+                'msg' => implode(', ', $fields),
+                'data' => $re
             ]);
     }
 }
