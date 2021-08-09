@@ -14,17 +14,16 @@ class HelloController extends Controller
     //     // $this->myService = $myService;
     // }
 
-    public function index($id)
+    public function index(Request $request)
     {
-        $ids = explode(',', $id);
-        $msg = 'get people.';
-        $result = DB::table('peoples')->whereIn('id', $ids)->get();
+        $id = $request->query('page');
+        $msg = 'show page: ' . $id;
+        $result = DB::table('peoples')->paginate(3, ['*'], 'page', $id);
 
-
-        $data = [
-            'msg' => $msg,
-            'data' => $result,
-        ];
-        return view('hello.index', $data);
+        return view('hello.index')
+            ->with([
+                'msg' => $msg,
+                'data' => $result,
+            ]);
     }
 }
