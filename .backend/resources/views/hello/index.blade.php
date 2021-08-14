@@ -26,5 +26,6 @@
         ID:<input type="text" id="id" name="id">
         <input type="submit" value="送信">
     </form>
+    {{-- {{dd($data)}} --}}
 </body>
 </html>
