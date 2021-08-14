@@ -1,6 +1,6 @@
 <?php
 
-namespace App\listener;
+namespace App\listeners;
 
 use App\Events\PersonEvent;
 use App\Listeners\PersonEventListener;
