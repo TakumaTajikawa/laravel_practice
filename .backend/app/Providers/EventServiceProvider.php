@@ -8,6 +8,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\PersonEvent;
 use App\Listeners\PersonEventListener;
+use App\Listeners\MyEventSubscriber;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,10 +21,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        PersonEvent::class => [
-            PersonEventListener::class,
-        ],
+    ];
 
+    protected $subscribe = [
+        MyEventSubscriber::class,
     ];
 
     /**
