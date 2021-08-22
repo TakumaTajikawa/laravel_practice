@@ -20,7 +20,21 @@ class ExampleTest extends TestCase
         $this->get('/hello/1')->assertOk();
         $this->get('/hoge')->assertStatus(404);
         $this->get('/hello')->assertSeeText('Index', 'Index');
-        // $this->get('/hello')->assertSee('<h1>');
-        // $this->get('/hello')->assertSeeInOrder(['<html', '<head', '<body', '<h1>']);
+      
+        $this->assertDatabaseHas('peoples', [
+            'email' => 'taro@yamdada.com',
+            'age' => 34,
+        ]);
     }
+
+    // public function modelTest()
+    // {
+    //     $data = [
+    //         'id' => 1,
+    //         'name' => '山田太郎',
+    //         'mail' => 'taro@yamda.com',
+    //         'age' => 34
+    //     ];
+    //     $this->assertDatabaseHas('peoples', $data);
+    // }
 }
