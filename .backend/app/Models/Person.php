@@ -17,6 +17,12 @@ class Person extends Model
         'age' => 'integer',
     ];
 
+    protected $fillable = [
+        'name',
+        'email',
+        'age',
+    ];
+
     public function newCollection(array $models = [])
     {
         return new MyCollection($models);

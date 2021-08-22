@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Person;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -14,17 +15,12 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $this->get('/')->assertStatus(200);
-        $this->get('/hello')->assertOk();
-        // $this->post('/hello')->assertOk();
-        $this->get('/hello/1')->assertOk();
-        $this->get('/hoge')->assertStatus(404);
-        $this->get('/hello')->assertSeeText('Index', 'Index');
-      
-        $this->assertDatabaseHas('peoples', [
-            'email' => 'taro@yamdada.com',
-            'age' => 34,
-        ]);
+        $person = Person::find(2);
+        $data = $person->toArray();
+        $this->assertDatabaseHas('peoples', $data);
+
+        $person->delete();
+        $this->assertDatabaseMissing('peoples', $data);
     }
 
     // public function modelTest()
