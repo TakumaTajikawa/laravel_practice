@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use database\Factories\PeopleFactory;
+use App\Models\Person;
 
 class PeopleSeeder extends Seeder
 {
@@ -80,6 +82,7 @@ class PeopleSeeder extends Seeder
                 'email' => 'chika@kanzaki.com',
                 'age' => '27',
             ],
+            Person::factory()->count(50)->create(),
         ];
         DB::table('peoples')->insert($peoplesParams);
     }

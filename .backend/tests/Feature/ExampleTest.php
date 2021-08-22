@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Person;
+use Database\Factories\PersonFactory;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -15,12 +16,19 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $person = Person::find(2);
+        Person::factory()->count(50)->create();
+        
+
+        $count = Person::get()->count();
+        $person = person::find(rand(1, $count));
         $data = $person->toArray();
+        print_r($data);
+
         $this->assertDatabaseHas('peoples', $data);
 
         $person->delete();
         $this->assertDatabaseMissing('peoples', $data);
+
     }
 
     // public function modelTest()
