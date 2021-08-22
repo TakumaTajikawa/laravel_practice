@@ -14,8 +14,13 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $this->get('/')->assertStatus(200);
+        $this->get('/hello')->assertOk();
+        // $this->post('/hello')->assertOk();
+        $this->get('/hello/1')->assertOk();
+        $this->get('/hoge')->assertStatus(404);
+        $this->get('/hello')->assertSeeText('Index', 'Index');
+        // $this->get('/hello')->assertSee('<h1>');
+        // $this->get('/hello')->assertSeeInOrder(['<html', '<head', '<body', '<h1>']);
     }
 }
