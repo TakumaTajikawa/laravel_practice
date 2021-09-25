@@ -13,6 +13,9 @@ class Blog extends Model
 {
     use HasFactory;
 
+    const OPEN = 1;
+    const CLOSED = 0;
+
     /**
      * userモデルとのリレーションを定義
      *
@@ -31,5 +34,10 @@ class Blog extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function scopeOnlyOpen($query)
+    {
+        return $query->where('status', self::OPEN);
     }
 }

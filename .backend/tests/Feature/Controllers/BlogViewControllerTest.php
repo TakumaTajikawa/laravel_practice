@@ -12,11 +12,11 @@ class BlogViewControllerTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic feature test example.
+     * @test
      *
      * @return void
      */
-    public function test_example()
+    public function ブログのTOPページを開ける()
     {
         $blog1 = Blog::factory()->hasComments(1)->create();
         $blog2 = Blog::factory()->hasComments(3)->create();
@@ -34,6 +34,30 @@ class BlogViewControllerTest extends TestCase
             ->assertSee($blog3->user->name)
             ->assertSee("(1件のコメント)")
             ->assertSee("(3件のコメント)")
-            ->assertSee("(2件のコメント)");
+            ->assertSee("(2件のコメント)")
+            ->assertSeeInOrder([$blog2->title, $blog3->title, $blog1->title]);
+    }
+
+    /**
+     * @test
+     */
+    public function ブログの一覧、非公開のブログは表示されない()
+    {
+        Blog::factory()->create([
+            'status' => Blog::CLOSED,
+            'title' => 'ブログA',
+        ]);
+
+        Blog::factory()->create(['title' => 'ブログB']);
+        Blog::factory()->create(['title' => 'ブログC']);
+
+        $response = $this->get('/');
+
+        $response->assertStatus(200)
+            ->assertDontSee('ブログA')
+            ->assertSee('ブログB')
+            ->assertSee('ブログC');
+
+
     }
 }
