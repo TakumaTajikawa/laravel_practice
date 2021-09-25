@@ -4,10 +4,13 @@ namespace Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Blog;
 use Tests\TestCase;
 
 class BlogViewControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
@@ -15,8 +18,19 @@ class BlogViewControllerTest extends TestCase
      */
     public function test_example()
     {
+        $blog1 = Blog::factory()->create();
+        $blog2 = Blog::factory()->create();
+        $blog3 = Blog::factory()->create();
+
         $response = $this->get('/');
 
-        $response->assertOk(200);
+        $response->assertViewIs('blog.index')
+            ->assertOk()
+            ->assertSee($blog1->title)
+            ->assertSee($blog2->title)
+            ->assertSee($blog3->title)
+            ->assertSee($blog1->user->name)
+            ->assertSee($blog2->user->name)
+            ->assertSee($blog3->user->name);
     }
 }
