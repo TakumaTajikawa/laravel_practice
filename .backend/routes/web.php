@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\HelloMiddleware;
-use App\Http\Controllers\HelloController;
-use App\Http\Middleware\MyMiddleware;
+use App\Http\Controllers\BlogViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,15 +15,5 @@ use App\Http\Middleware\MyMiddleware;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/hello', [HelloController::class, 'index'])->name('hello')
-    ->middleware('MyMW');
-
-Route::get('/hello/{person}', [HelloController::class, 'index'])
-    ->middleware('MyMW');
-
-Route::post('/hello', [HelloController::class, 'send']);
-
+Route::get('/', [BlogViewController::class, 'index']);

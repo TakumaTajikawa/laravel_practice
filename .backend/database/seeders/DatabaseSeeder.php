@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\PeopleSeeder;
-use App\Models\Person;
+use App\Models\Blog;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        
-        // $this->call([
-        //     PeopleSeeder::class,
-        // ]);
+        Blog::factory(15)->create();
     }
 }
