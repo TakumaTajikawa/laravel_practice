@@ -14,7 +14,9 @@ class BlogViewController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::get();
+        // $blogs = Blog::get();
+
+        $blogs = Blog::withCount('comments')->get();
 
         return view('blog.index')->with('blogs', $blogs);
     }
