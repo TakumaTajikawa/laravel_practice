@@ -1,4 +1,4 @@
-<!doctype html>
+{{-- <!doctype html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
             <li>
                 {{ $item->id}}
                 {{ $item->name_and_age }}
-                {{-- [{{ $item->email }},  --}}
+
                 {{ $item->name_and_mail }}]
             </li>
         @endforeach
@@ -26,6 +26,6 @@
         ID:<input type="text" id="id" name="id">
         <input type="submit" value="送信">
     </form>
-    {{-- {{dd($data)}} --}}
+
 </body>
-</html>
+</html> --}}
