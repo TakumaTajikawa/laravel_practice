@@ -6,7 +6,14 @@
 
 <ul>
     @foreach ($blogs as $blog)
-        <li>{{ $loop->iteration }}：{{ $blog->title }}  {{ $blog->user->name }} ({{ $blog->comments_count }}件のコメント)</li>
+        <li>
+            {{ $loop->iteration }}：
+            <a href="{{ route('blog.show', ['blog' => $blog]) }}">
+                {{ $blog->title }}  
+            </a>
+            {{ $blog->user->name }} 
+            ({{ $blog->comments_count }}件のコメント)
+        </li>
     @endforeach
 </ul>
 

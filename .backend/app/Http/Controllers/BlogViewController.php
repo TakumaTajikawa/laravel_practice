@@ -24,4 +24,19 @@ class BlogViewController extends Controller
 
         return view('blog.index')->with('blogs', $blogs);
     }
+
+    /**
+     * ブログの詳細画面を表示
+     *
+     * @param Blog $blog
+     * @return void
+     */
+    public function show(Blog $blog)
+    {
+        if ($blog->isClosed()) {
+            abort(403);
+        }
+
+        return view('blog.show')->with('blog', $blog);
+    }
 }

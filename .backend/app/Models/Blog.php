@@ -40,4 +40,18 @@ class Blog extends Model
     {
         return $query->where('status', self::OPEN);
     }
+
+    /**
+     * ブログのステータスが非公開だったらTrueを返す
+     *
+     * @return boolean
+     */
+    public function isClosed(): bool
+    {
+        if ($this->status === self::CLOSED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
