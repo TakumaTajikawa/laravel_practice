@@ -61,4 +61,20 @@ class BlogTest extends TestCase
         $this->assertTrue($blogs->contains($blog2));
         $this->assertTrue($blogs->contains($blog3));
     }
+
+    /**
+     * @test
+     * 
+     * isClosed()
+     */
+    public function ブログで非公開はtrueを返し、公開時はfalseを返す()
+    {
+        $blog = Blog::factory()->make();
+
+        $this->assertFalse($blog->isClosed());
+
+        $blog = Blog::factory()->closed()->make();
+
+        $this->assertTrue($blog->isClosed());
+    }
 }

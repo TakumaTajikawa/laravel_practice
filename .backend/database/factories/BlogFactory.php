@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Blog;
 use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BlogFactory extends Factory
@@ -36,6 +37,26 @@ class BlogFactory extends Factory
             return [
                 'status' => $this->faker->biasedNumberBetween(0, 1, ['\Faker\Provider\Biased', 'linearHigh']),
             ];
+        });
+    }
+
+    public function closed()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => Blog::CLOSED,
+            ];
+        });
+    }
+
+    public function withCommentsData(array $comments)
+    {
+        return $this->afterCreating(function (Blog $blog) use ($comments) {
+            foreach ($comments as $comment) {
+                Comment::factory()->create(array_merge(
+                    ['blog_id' => $blog->id], $comment
+                ));
+            }
         });
     }
 }

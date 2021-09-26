@@ -5,7 +5,9 @@ namespace Tests\Feature\Controllers;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Blog;
+use App\Models\Comment;
 use Tests\TestCase;
+use Carbon\Carbon;
 
 class BlogViewControllerTest extends TestCase
 {
@@ -39,12 +41,11 @@ class BlogViewControllerTest extends TestCase
     }
 
     /**
-     * @test
+     * @test index
      */
     public function ブログの一覧、非公開のブログは表示されない()
     {
-        Blog::factory()->create([
-            'status' => Blog::CLOSED,
+        Blog::factory()->closed()->create([
             'title' => 'ブログA',
         ]);
 
@@ -57,7 +58,56 @@ class BlogViewControllerTest extends TestCase
             ->assertDontSee('ブログA')
             ->assertSee('ブログB')
             ->assertSee('ブログC');
+    }
 
+    /**
+     * @test show
+     */
+    public function ブログの詳細画面が表示でき、コメントが古い順に表示される()
+    {
+        $blog = Blog::factory()->withCommentsData([
+            ['created_at' => now()->subdays(2), 'name' =>'大谷翔平'],
+            ['created_at' => now()->subdays(3), 'name' =>'筒香嘉智'],
+            ['created_at' => now()->subday(), 'name' =>'菊池雄星'],
+        ])->create();
 
+        $this->get('blogs/' . $blog->id)
+            ->assertOk()
+            ->assertSee($blog->title)
+            ->assertSee($blog->user->name)
+            ->assertSeeInOrder(['筒香嘉智', '大谷翔平', '菊池雄星']);
+    }
+
+    /**
+     * @test show
+     *
+     * @return void
+     */
+    public function ブログで非公開のものは、詳細画面は表示できない()
+    {
+        $closeBlog = Blog::factory()->closed()->create();
+
+        $this->get('blogs/' . $closeBlog->id)
+            ->assertOk();
+    }
+
+    /**
+     * @test show
+     */
+    public function クリスマスの日は、メリークリスマス！と表示される()
+    {
+        $blog = Blog::factory()->create();
+
+        Carbon::setTestNow('2021-12-24');
+
+        $this->get('blogs/' . $blog->id)
+            ->assertOk()
+            ->assertDontSee('メリークリスマス！');
+
+        Carbon::setTestNow('2021-12-25');
+
+        $this->get('blogs/' . $blog->id)
+            ->assertOk()
+            ->assertSee('メリークリスマス！');
     }
 }
