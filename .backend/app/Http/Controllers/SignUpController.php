@@ -14,7 +14,6 @@ class SignUpController extends Controller
 
     public function store(Request $request)
     {
-        dd(bcrypt($request->input('password')));
         User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),

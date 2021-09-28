@@ -18,7 +18,6 @@ class SignUpControllerTest extends TestCase
      */
     public function ユーザー登録画面を開ける()
     {
-        $this->withoutExceptionHandling();
         $this->get('signup')
             ->assertOk();
     }
@@ -29,11 +28,7 @@ class SignUpControllerTest extends TestCase
     public function ユーザー登録できる()
     {
         $this->withoutExceptionHandling();
-        $validData = [
-            'name' => '太郎',
-            'email' => 'aaa@bbb.com',
-            'password' => 'abcd1234'
-        ];
+        $validData = User::factory()->validData();
 
         $this->post('signup', $validData)
             ->assertOk();
@@ -47,6 +42,14 @@ class SignUpControllerTest extends TestCase
 
 
         $this->assertTrue(Hash::check('abcd1234', $user->password));
+    }
 
+    private function validData($overrides = [])
+    {
+        return array_merge([
+            'name' => '太郎',
+            'email' => 'aaa@bbb.net',
+            'password' => 'abcdd1234',
+        ], $overrides);
     }
 }
