@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Validation\Rule;
 
 class SignUpController extends Controller
 {
@@ -25,13 +26,15 @@ class SignUpController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'max:20'],
+            'email' => ['required', 'email:filter', Rule::unique('users')],
+            'password' => ['required', 'min:8'],
         ]);
         User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
         ]);
     }
 }
