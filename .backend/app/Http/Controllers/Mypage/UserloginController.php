@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mypage;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class UserloginController extends Controller
 {
@@ -14,7 +15,7 @@ class UserloginController extends Controller
      */
     public function index()
     {
-        return view('mypage/login');
+        return view('mypage.login');
     }
 
     /**
@@ -24,9 +25,15 @@ class UserloginController extends Controller
      */
     public function login(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'email' => ['required', 'email:filter'],
             'password' => ['required'],
         ]);
+
+        if (! auth()->attempt($data)) {
+            throw ValidationException::withMessages(['email' => 'メールアドレスかパスワードが間違っています。']);
+        }
+
+        return redirect('mypage/blogs');
     }
 }
