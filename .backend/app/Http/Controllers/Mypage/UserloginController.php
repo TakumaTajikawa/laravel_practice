@@ -16,4 +16,17 @@ class UserloginController extends Controller
     {
         return view('mypage/login');
     }
+
+    /**
+     * ユーザーのログイン処理
+     *
+     * @return view
+     */
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'email:filter'],
+            'password' => ['required'],
+        ]);
+    }
 }
