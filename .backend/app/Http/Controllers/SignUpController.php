@@ -31,10 +31,14 @@ class SignUpController extends Controller
             'email' => ['required', 'email:filter', Rule::unique('users')],
             'password' => ['required', 'min:8'],
         ]);
-        User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        auth()->login($user);
+
+        return redirect('mypage/blogs');
     }
 }

@@ -30,7 +30,7 @@ class SignUpControllerTest extends TestCase
         $validData = User::factory()->validData();
 
         $this->post('signup', $validData)
-            ->assertOk();
+            ->assertRedirect('mypage/blogs');
 
         unset($validData['password']);
 
@@ -41,6 +41,8 @@ class SignUpControllerTest extends TestCase
 
 
         $this->assertTrue(Hash::check('abcd1234', $user->password));
+
+        $this->assertAuthenticatedAs($user);
     }
 
     /**
@@ -49,6 +51,8 @@ class SignUpControllerTest extends TestCase
     public function 不正なデータではユーザー登録できない()
     {
         $url = 'signup';
+
+        $this->from('signup')->post($url, [])->assertRedirect('signup');
 
         $this->post($url, ['name' => ''])
             ->assertSessionHasErrors(['name' => '名前は必ず指定してください。']);
