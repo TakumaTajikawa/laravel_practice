@@ -9,7 +9,7 @@
 
         @include('inc.error')
 
-        {{-- @include('inc.status') --}}
+        @include('inc.status')
 
         メールアドレス：<input type="text" name="email" value="{{ old('email') }}">
         <br>
