@@ -4,7 +4,7 @@
 
     <h1>ログイン画面</h1>
 
-    <form method="post">
+    <form method="post" action="{{ url('mypage/login') }}">
         @csrf
 
         @include('inc.error')

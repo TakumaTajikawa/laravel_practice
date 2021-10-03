@@ -25,6 +25,7 @@ class UserloginController extends Controller
      */
     public function login(Request $request)
     {
+        dd($request);
         $data = $request->validate([
             'email' => ['required', 'email:filter'],
             'password' => ['required'],
