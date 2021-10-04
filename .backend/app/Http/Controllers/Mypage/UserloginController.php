@@ -25,6 +25,7 @@ class UserloginController extends Controller
      */
     public function login(Request $request)
     {
+        dd($request);
         $data = $request->validate([
             'email' => ['required', 'email:filter'],
             'password' => ['required'],
@@ -35,5 +36,17 @@ class UserloginController extends Controller
         }
 
         return redirect('mypage/blogs');
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('mypage/login')
+            ->with('status', 'ログアウトしました。');
     }
 }

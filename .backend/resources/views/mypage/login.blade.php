@@ -4,12 +4,12 @@
 
     <h1>ログイン画面</h1>
 
-    <form method="post">
+    <form method="post" action="{{ url('mypage/login') }}">
         @csrf
 
         @include('inc.error')
 
-        {{-- @include('inc.status') --}}
+        @include('inc.status')
 
         メールアドレス：<input type="text" name="email" value="{{ old('email') }}">
         <br>

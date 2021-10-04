@@ -31,6 +31,17 @@ class BlogFactory extends Factory
         ];
     }
 
+    public function validData()
+    {
+        return [
+            'user_id' => 4,
+            'status' => Blog::OPEN,
+            'title' => $this->faker->realText(20),
+            'body' => $this->faker->realText(100),
+            'status' => Blog::OPEN,
+        ];
+    }
+
     public function seeding()
     {
         return $this->state(function (array $attributes) {

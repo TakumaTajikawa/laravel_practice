@@ -16,6 +16,8 @@ class Blog extends Model
     const OPEN = 1;
     const CLOSED = 0;
 
+    protected $guarded =[];
+
     /**
      * userモデルとのリレーションを定義
      *
