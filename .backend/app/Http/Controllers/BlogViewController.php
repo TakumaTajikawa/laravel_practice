@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Blog;
+use App\Models\Player;
+use App\Models\Team;
+use Illuminate\Support\Facades\DB;
+
 
 class BlogViewController extends Controller
 {
@@ -21,6 +25,11 @@ class BlogViewController extends Controller
             ->withCount('comments')
             ->orderByDesc('comments_count')
             ->get();
+        
+        // $players = DB::table('players')  // 主となるテーブル名
+        //     ->rightJoin('teams as t', 'players.team_id', '=', 't.id')  // teamsをtと省略
+        //     ->get();
+        // dd($players);
 
         return view('blog.index')->with('blogs', $blogs);
     }
